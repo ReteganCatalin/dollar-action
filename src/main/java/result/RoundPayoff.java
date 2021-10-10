@@ -9,6 +9,7 @@ import java.util.Map;
 @Builder
 @Getter
 public class RoundPayoff {
+
     @Builder.Default
     private final Map<ResultType, Long> resultTypes = new HashMap<>();
     @Builder.Default
@@ -34,14 +35,6 @@ public class RoundPayoff {
         return init().build();
     }
 
-    private static Map<ResultType, Long> combine(Map<ResultType, Long> m1, Map<ResultType, Long> m2) {
-        HashMap<ResultType, Long> combinedTypeMap = new HashMap<>();
-        for (ResultType value : ResultType.values()) {
-            combinedTypeMap.put(value, m1.get(value) + m2.get(value));
-        }
-        return combinedTypeMap;
-    }
-
     public float sum() {
         return playerPayoff + computerPayoff;
     }
@@ -53,5 +46,13 @@ public class RoundPayoff {
 
     public void setType(ResultType resultType) {
         resultTypes.put(resultType, 1L);
+    }
+
+    private static Map<ResultType, Long> combine(Map<ResultType, Long> m1, Map<ResultType, Long> m2) {
+        HashMap<ResultType, Long> combinedTypeMap = new HashMap<>();
+        for (ResultType value : ResultType.values()) {
+            combinedTypeMap.put(value, m1.get(value) + m2.get(value));
+        }
+        return combinedTypeMap;
     }
 }
