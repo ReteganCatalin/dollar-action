@@ -1,12 +1,14 @@
-package player;
+package player.computer;
+
+import player.Choice;
 
 import java.util.Random;
 
 import static player.Choice.BETRAY;
 import static player.Choice.COOPERATE;
-import static player.Strategy.RANDOM;
+import static player.computer.StandardStrategy.RANDOM;
 
-public class CompletelyRandomPlayer extends Player {
+public class CompletelyRandomPlayer extends ComputerPlayer {
 
     @Override
     public Choice play() {
@@ -14,7 +16,7 @@ public class CompletelyRandomPlayer extends Player {
     }
 
     @Override
-    public Strategy getStrategy() {
+    public StandardStrategy getStrategy() {
         return RANDOM;
     }
 }

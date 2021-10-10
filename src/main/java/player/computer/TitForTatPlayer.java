@@ -1,18 +1,21 @@
-package player;
+package player.computer;
+
+import player.Choice;
+import player.Round;
 
 import java.util.List;
 
 import static player.Choice.COOPERATE;
-import static player.Strategy.TIT_FOR_TAT;
+import static player.computer.StandardStrategy.TIT_FOR_TAT;
 
-public class TitForTatPlayer extends Player {
+public class TitForTatPlayer extends ComputerPlayer {
     @Override
     public Choice play() {
         return getLastMoveOfOpponent();
     }
 
     @Override
-    public Strategy getStrategy() {
+    public StandardStrategy getStrategy() {
         return TIT_FOR_TAT;
     }
 

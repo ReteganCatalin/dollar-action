@@ -1,6 +1,6 @@
-package player;
+package player.computer;
 
-public enum Strategy {
+public enum StandardStrategy {
     RANDOM,
     ALWAYS_COOPERATE,
     ALWAYS_BETRAY,

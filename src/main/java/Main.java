@@ -1,14 +1,15 @@
 import player.*;
+import player.computer.AlwaysCooperatePlayer;
 import result.Result;
 import result.RoundPayoffCalculator;
 
 public class Main {
 
-    private static final int NR_TOURNAMENTS = 100;
+    private static final int NR_TOURNAMENTS = 1000;
 
     public static void main(String[] args) {
         RoundPayoffCalculator payoffCalculator = new RoundPayoffCalculator();
-        Player player = new AlwaysBetrayPlayer();
+        Player player = new AlwaysCooperatePlayer();
 
         long totalScore = 0;
 

@@ -14,6 +14,4 @@ public abstract class Player {
     }
 
     public abstract Choice play();
-
-    public abstract Strategy getStrategy();
 }
