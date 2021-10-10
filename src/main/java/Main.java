@@ -1,7 +1,6 @@
 import lombok.SneakyThrows;
 import player.CustomPlayer;
 import player.Player;
-import player.computer.TitForTatPlayer;
 import result.PayoffCalculator;
 import result.PrisonSentencePayoffCalculator;
 import result.RoundPayoff;
@@ -21,7 +20,7 @@ public class Main {
   @SneakyThrows
   public static void main(String[] args) {
     PayoffCalculator payoffCalculator = new PrisonSentencePayoffCalculator();
-    Player player = new TitForTatPlayer();
+    Player player = new CustomPlayer();
 
     final List<TournamentRunner> threads = new ArrayList<>();
     launchThreads(payoffCalculator, player, threads);
