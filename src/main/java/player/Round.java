@@ -6,10 +6,10 @@ import lombok.Data;
 @Data
 @Builder
 public class Round {
-  private Choice playerChoice;
-  private Choice computerChoice;
+    private Choice playerChoice;
+    private Choice computerChoice;
 
-  public static Round random() {
-    return Round.builder().playerChoice(Choice.random()).computerChoice(Choice.random()).build();
-  }
+    public static Round random() {
+        return Round.builder().playerChoice(Choice.random()).computerChoice(Choice.random()).build();
+    }
 }
