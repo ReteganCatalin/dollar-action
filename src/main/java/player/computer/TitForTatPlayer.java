@@ -6,7 +6,7 @@ import player.Round;
 import java.util.List;
 
 import static player.Choice.COOPERATE;
-import static player.computer.StandardStrategy.TIT_FOR_TAT;
+import static player.computer.Strategy.TIT_FOR_TAT;
 
 public class TitForTatPlayer extends ComputerPlayer {
     @Override
@@ -15,7 +15,7 @@ public class TitForTatPlayer extends ComputerPlayer {
     }
 
     @Override
-    public StandardStrategy getStrategy() {
+    public Strategy getStrategy() {
         return TIT_FOR_TAT;
     }
 

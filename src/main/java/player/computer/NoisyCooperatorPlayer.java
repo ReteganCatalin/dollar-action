@@ -6,7 +6,7 @@ import java.util.Random;
 
 import static player.Choice.BETRAY;
 import static player.Choice.COOPERATE;
-import static player.computer.StandardStrategy.NOISY_COOPERATOR;
+import static player.computer.Strategy.NOISY_COOPERATOR;
 
 public class NoisyCooperatorPlayer extends ComputerPlayer {
 
@@ -19,7 +19,7 @@ public class NoisyCooperatorPlayer extends ComputerPlayer {
   }
 
   @Override
-  public StandardStrategy getStrategy() {
+  public Strategy getStrategy() {
     return NOISY_COOPERATOR;
   }
 }

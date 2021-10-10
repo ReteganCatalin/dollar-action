@@ -2,7 +2,7 @@ package player.computer;
 
 import player.Choice;
 
-import static player.computer.StandardStrategy.RANDOM;
+import static player.computer.Strategy.RANDOM;
 
 public class CompletelyRandomPlayer extends ComputerPlayer {
 
@@ -12,7 +12,7 @@ public class CompletelyRandomPlayer extends ComputerPlayer {
   }
 
   @Override
-  public StandardStrategy getStrategy() {
+  public Strategy getStrategy() {
     return RANDOM;
   }
 }

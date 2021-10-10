@@ -1,13 +1,8 @@
 import player.Choice;
 import player.Player;
 import player.Round;
-import player.computer.AlwaysBetrayPlayer;
-import player.computer.AlwaysCooperatePlayer;
-import player.computer.CompletelyRandomPlayer;
 import player.computer.ComputerPlayer;
-import player.computer.NoisyCooperatorPlayer;
-import player.computer.StandardStrategy;
-import player.computer.TitForTatPlayer;
+import player.computer.Strategy;
 import result.PayoffCalculator;
 import result.Result;
 import result.RoundPayoff;
@@ -25,14 +20,12 @@ public class Tournament {
 
   private final PayoffCalculator calculator;
   private final Player player;
-  private final ComputerPlayer[] strategies = new ComputerPlayer[StandardStrategy.values().length];
 
   private final Result result = new Result();
 
   public Tournament(PayoffCalculator calculator, Player player) {
     this.calculator = calculator;
     this.player = player;
-    initStrategies();
   }
 
   public void play() {
@@ -62,17 +55,9 @@ public class Tournament {
     return calculator.computePayoff(p1Choice, p2Choice);
   }
 
-  private void initStrategies() {
-    strategies[0] = new CompletelyRandomPlayer();
-    strategies[1] = new AlwaysCooperatePlayer();
-    strategies[2] = new AlwaysBetrayPlayer();
-    strategies[3] = new TitForTatPlayer();
-    strategies[4] = new NoisyCooperatorPlayer();
-  }
-
   private ComputerPlayer getRandomStrategy() {
-    final int index = new Random().nextInt(StandardStrategy.values().length);
-    return strategies[index];
+    final int index = new Random().nextInt(Strategy.values().length);
+    return Strategy.values()[index].getPlayer();
   }
 
   public Result getResult() {
