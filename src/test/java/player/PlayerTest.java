@@ -35,17 +35,4 @@ class PlayerTest {
     assertEquals(nrRoundsAdded, p.getLastNRounds(nrRoundsAdded).size());
     assertEquals(nrRoundsAdded, p.getLastNRounds(nrRoundsAdded + 100).size());
   }
-
-  @Test
-  void getComputerChoices() {
-
-  }
-
-  @Test
-  void getLastComputerChoice() {
-  }
-
-  @Test
-  void getLastNComputerChoices() {
-  }
 }
