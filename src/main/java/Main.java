@@ -1,7 +1,9 @@
 import lombok.SneakyThrows;
 import player.Player;
 import player.computer.AlwaysCooperatePlayer;
-import result.RoundPayoffCalculator;
+import player.computer.TitForTatPlayer;
+import result.BasicPayoffCalculator;
+import result.PayoffCalculator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +16,7 @@ public class Main {
 
   @SneakyThrows
   public static void main(String[] args) {
-    RoundPayoffCalculator payoffCalculator = new RoundPayoffCalculator();
+    PayoffCalculator payoffCalculator = new BasicPayoffCalculator();
     Player player = new AlwaysCooperatePlayer();
 
     final List<TournamentRunner> threads = new ArrayList<>();
@@ -27,7 +29,7 @@ public class Main {
         totalScore / NR_TOURNAMENTS_PER_THREAD);
   }
 
-  private static void launchThreads(RoundPayoffCalculator payoffCalculator, Player player,
+  private static void launchThreads(PayoffCalculator payoffCalculator, Player player,
                                     List<TournamentRunner> threads) throws InterruptedException {
     final CountDownLatch latch = new CountDownLatch(NR_THREADS);
 

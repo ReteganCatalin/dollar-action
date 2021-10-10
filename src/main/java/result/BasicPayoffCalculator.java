@@ -5,7 +5,7 @@ import player.Choice;
 import static player.Choice.BETRAY;
 import static player.Choice.COOPERATE;
 
-public class RoundPayoffCalculator {
+public class BasicPayoffCalculator implements PayoffCalculator {
 
   public static final float BOTH_COOPERATION_BONUS = .75f;
   public static final float BETRAYER_BONUS = .85f;
