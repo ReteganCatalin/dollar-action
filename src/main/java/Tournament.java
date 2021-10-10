@@ -18,7 +18,7 @@ import static java.util.Optional.ofNullable;
 
 public class Tournament {
 
-  public static final long ROUNDS_PER_TOURNAMENT = 1000;
+  public static final long ROUNDS_PER_TOURNAMENT = 100;
 
   private final PayoffCalculator calculator;
   private final Player player;

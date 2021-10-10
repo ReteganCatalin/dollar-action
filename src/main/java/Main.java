@@ -1,6 +1,6 @@
 import lombok.SneakyThrows;
+import player.CustomPlayer;
 import player.Player;
-import player.computer.AlwaysCooperatePlayer;
 import player.computer.TitForTatPlayer;
 import result.PayoffCalculator;
 import result.PrisonSentencePayoffCalculator;
@@ -14,8 +14,9 @@ import static java.lang.Math.abs;
 
 public class Main {
 
-  private static final int NR_TOURNAMENTS_PER_THREAD = 1000;
-  private static final int NR_THREADS = 8;
+  private static final int NR_TOURNAMENTS_PER_THREAD = 100;
+  private static final int NR_THREADS = 4;
+  private static final int NORMALIZATION_FACTOR = NR_TOURNAMENTS_PER_THREAD * NR_THREADS;
 
   @SneakyThrows
   public static void main(String[] args) {
@@ -37,9 +38,9 @@ public class Main {
   }
 
   private static void printResults(RoundPayoff combinedResults) {
-    final float playerPayoff = combinedResults.getPlayerPayoff() / NR_TOURNAMENTS_PER_THREAD;
-    final float computerPayoff = combinedResults.getComputerPayoff() / NR_TOURNAMENTS_PER_THREAD;
-    final float teamPayoff = combinedResults.sum() / NR_TOURNAMENTS_PER_THREAD;
+    final float playerPayoff = combinedResults.getPlayerPayoff() / NORMALIZATION_FACTOR;
+    final float computerPayoff = combinedResults.getComputerPayoff() / NORMALIZATION_FACTOR;
+    final float teamPayoff = combinedResults.sum() / NORMALIZATION_FACTOR;
     System.out.printf("Player score: %.2f\n" +
             "Computer score: %.2f\n" +
             "Team score: %.2f\n" +
