@@ -24,9 +24,18 @@ public class Tournament {
         for (int i = 0; i < ROUNDS_PER_TOURNAMENT; i++) {
             playRound();
         }
+
+        savePoints();
+        manageWins();
+        reset();
+    }
+
+    private void savePoints() {
         p1.savePoints(p2);
         p2.savePoints(p1);
+    }
 
+    private void manageWins() {
         if (p1.getCurrentPoints() == p2.getCurrentPoints()) {
             p1.addWin();
             p2.addWin();
@@ -35,6 +44,9 @@ public class Tournament {
         } else {
             p2.addWin();
         }
+    }
+
+    private void reset() {
         p1.reset();
         p2.reset();
     }
