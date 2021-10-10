@@ -8,9 +8,11 @@ import result.Result;
 import result.RoundPayoff;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
 
@@ -36,6 +38,11 @@ public class Tournament {
     strategyResult.addPayoffs(payoffs);
 
     this.result.addPayoffs(payoffs);
+    this.result.normalize(ROUNDS_PER_TOURNAMENT);
+  }
+
+  public Result getResult() {
+    return result;
   }
 
   private Collection<RoundPayoff> play(Player computer) {
@@ -56,11 +63,14 @@ public class Tournament {
   }
 
   private ComputerPlayer getRandomStrategy() {
-    final int index = new Random().nextInt(Strategy.values().length);
-    return Strategy.values()[index].getPlayer();
+    final List<Strategy> strategies = enabledStrategies();
+    final int index = new Random().nextInt(strategies.size());
+    return strategies.get(index).getPlayer();
   }
 
-  public Result getResult() {
-    return result;
+  private List<Strategy> enabledStrategies() {
+    return Arrays.stream(Strategy.values())
+        .filter(Strategy::isEnabled)
+        .collect(Collectors.toList());
   }
 }

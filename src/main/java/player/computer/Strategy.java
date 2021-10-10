@@ -1,19 +1,25 @@
 package player.computer;
 
 public enum Strategy {
-  RANDOM(new CompletelyRandomPlayer()),
-  ALWAYS_COOPERATE(new AlwaysCooperatePlayer()),
-  ALWAYS_BETRAY(new AlwaysBetrayPlayer()),
-  TIT_FOR_TAT(new TitForTatPlayer()),
-  NOISY_COOPERATOR(new NoisyCooperatorPlayer());
+  ALWAYS_COOPERATE(new AlwaysCooperatePlayer(), true),
+  ALWAYS_BETRAY(new AlwaysBetrayPlayer(), true),
+  RANDOM(new CompletelyRandomPlayer(), true),
+  TIT_FOR_TAT(new TitForTatPlayer(), true),
+  NOISY_COOPERATOR(new NoisyCooperatorPlayer(), true);
 
   private final ComputerPlayer player;
+  private final boolean enabled;
 
-  Strategy(ComputerPlayer player) {
+  Strategy(ComputerPlayer player, boolean enabled) {
     this.player = player;
+    this.enabled = enabled;
   }
 
   public ComputerPlayer getPlayer() {
     return player;
+  }
+
+  public boolean isEnabled() {
+    return enabled;
   }
 }

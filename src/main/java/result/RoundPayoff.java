@@ -6,10 +6,22 @@ import lombok.Getter;
 @Builder
 @Getter
 public class RoundPayoff {
-  private final float p1payoff;
-  private final float p2payoff;
+  private float playerPayoff;
+  private float computerPayoff;
 
   public float sum() {
-    return p1payoff + p2payoff;
+    return playerPayoff + computerPayoff;
+  }
+
+  public static RoundPayoff reduce(RoundPayoff r1, RoundPayoff r2) {
+    return RoundPayoff.builder()
+        .playerPayoff(r1.getPlayerPayoff() + r2.getPlayerPayoff())
+        .computerPayoff(r1.getComputerPayoff() + r2.getComputerPayoff())
+        .build();
+  }
+
+  public void normalize(long roundsPerTournament) {
+    this.playerPayoff /= roundsPerTournament;
+    this.computerPayoff /= roundsPerTournament;
   }
 }
