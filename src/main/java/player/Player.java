@@ -3,38 +3,64 @@ package player;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
+import java.util.Map;
 
 @Getter
-public abstract class Player {
-    private final List<Round> rounds = new ArrayList<>();
+public abstract class Player implements Strategic {
+    private final List<Choice> previousOpponentChoices = new ArrayList<>();
+    private final Map<Player, Float> opponentPointMap = new HashMap<>();
+    private float currentPoints = .0f;
+    private long wins = 0;
+    private double average = 0;
 
-    public void addRound(Round r) {
-        rounds.add(r);
+    public void addOpponentChoice(Choice c) {
+        previousOpponentChoices.add(c);
     }
 
     public abstract Choice play();
 
-    protected Round getLastRound() {
-        return !rounds.isEmpty() ? rounds.get(rounds.size() - 1) : null;
+    protected Choice getLastOpponentChoice() {
+        return !previousOpponentChoices.isEmpty() ? previousOpponentChoices.get(previousOpponentChoices.size() - 1) : null;
     }
 
-    protected List<Round> getLastNRounds(int n) {
-        final int fromIndex = rounds.size() >= n ? rounds.size() - n : 0;
-        return rounds.subList(fromIndex, rounds.size());
+    protected List<Choice> getLastNOpponentChoices(int n) {
+        final int fromIndex = previousOpponentChoices.size() >= n ? previousOpponentChoices.size() - n : 0;
+        return previousOpponentChoices.subList(fromIndex, previousOpponentChoices.size());
     }
 
-    protected List<Choice> getComputerChoices() {
-        return rounds.stream().map(Round::getComputerChoice).collect(toList());
+    protected List<Choice> getOpponentChoices() {
+        return previousOpponentChoices;
     }
 
-    protected Choice getLastComputerChoice() {
-        return !rounds.isEmpty() ? rounds.get(rounds.size() - 1).getComputerChoice() : null;
+    public void addScore(float points) {
+        this.currentPoints += points;
     }
 
-    protected List<Choice> getLastNComputerChoices(int n) {
-        return getLastNRounds(n).stream().map(Round::getComputerChoice).collect(toList());
+    public void reset() {
+        previousOpponentChoices.clear();
+        currentPoints = 0;
+    }
+
+    public void addWin() {
+        this.wins++;
+    }
+
+    public void savePoints(Player other) {
+        if (opponentPointMap.containsKey(other)) {
+            Float prev = opponentPointMap.get(other);
+            opponentPointMap.put(other, prev + currentPoints);
+        } else {
+            opponentPointMap.put(other, currentPoints);
+        }
+    }
+
+    public void computeAverage() {
+        this.average = opponentPointMap.values().stream().mapToDouble(value -> value).average().getAsDouble();
+    }
+
+    public void printStats() {
+        System.out.printf("%s -> average: %f\n", getStrategy(), average);
     }
 }

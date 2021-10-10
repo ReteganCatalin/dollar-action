@@ -1,10 +1,12 @@
 package player.computer;
 
 import player.Choice;
+import player.Player;
+import player.Strategy;
 
-import static player.computer.Strategy.RANDOM;
+import static player.Strategy.RANDOM;
 
-public class CompletelyRandomPlayer extends ComputerPlayer {
+public class CompletelyRandomPlayer extends Player {
 
     @Override
     public Choice play() {

@@ -1,56 +1,39 @@
 import lombok.SneakyThrows;
-import player.CustomPlayer;
 import player.Player;
+import player.Strategy;
 import result.PayoffCalculator;
-import result.PrisonSentencePayoffCalculator;
-import result.ResultPrinter;
-import result.RoundPayoff;
+import result.AxelrodPayoff;
 import tournament.Tournament;
-import tournament.TournamentRunner;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
+import java.util.stream.Collectors;
 
 public class Main {
 
-    private static final int NR_TOURNAMENTS_PER_THREAD = 50;
-    private static final int NR_THREADS = 4;
-    private static final int NORMALIZATION_FACTOR = NR_TOURNAMENTS_PER_THREAD * NR_THREADS;
-
     @SneakyThrows
     public static void main(String[] args) {
-        PayoffCalculator payoffCalculator = new PrisonSentencePayoffCalculator();
-        final ResultPrinter resultPrinter = new ResultPrinter();
+        PayoffCalculator payoffCalculator = new AxelrodPayoff();
 
-        Player player = new CustomPlayer();
-
-        final List<TournamentRunner> runners = new ArrayList<>();
-        launchRunners(payoffCalculator, player, runners);
-
-        resultPrinter.printResults(getResults(runners), NORMALIZATION_FACTOR);
+        startRoundRobin(payoffCalculator);
     }
 
-    private static RoundPayoff getResults(List<TournamentRunner> threads) {
-        return threads.stream()
-                .map(TournamentRunner::getPayoffs)
-                .reduce(RoundPayoff::reduce)
-                .orElse(RoundPayoff.empty());
-    }
+    private static void startRoundRobin(PayoffCalculator payoffCalculator) {
+        List<Player> strategies = Strategy.enabledStrategies().stream().map(Strategy::getPlayer).collect(Collectors.toList());
 
-    private static void launchRunners(PayoffCalculator payoffCalculator, Player player,
-                                      List<TournamentRunner> threads) throws InterruptedException {
-        final CountDownLatch latch = new CountDownLatch(NR_THREADS);
-
-        for (int t = 0; t < NR_THREADS; t++) {
-            final TournamentRunner runner = new TournamentRunner(latch);
-            threads.add(runner);
-            for (int i = 0; i < NR_TOURNAMENTS_PER_THREAD; i++) {
-                runner.addTournament(new Tournament(payoffCalculator, player));
+        List<Tournament> rounds = new ArrayList<>();
+        for (int i = 0; i < strategies.size(); i++) {
+            for (int j = i + 1; j < strategies.size(); j++) {
+                rounds.add(new Tournament(payoffCalculator, strategies.get(i), strategies.get(j)));
             }
         }
 
-        threads.forEach(TournamentRunner::run);
-        latch.await();
+        rounds.forEach(Tournament::play);
+        strategies.forEach(Player::computeAverage);
+
+        strategies.sort(Comparator.comparingDouble(Player::getAverage).reversed());
+        strategies.forEach(Player::printStats);
     }
+
 }

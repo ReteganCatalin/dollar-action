@@ -7,32 +7,32 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 class PlayerTest {
 
-  @Test
-  void getLastRound() {
-    Player p = new CustomPlayer();
-    assertNull(p.getLastRound());
+    @Test
+    void getLastRound() {
+        Player p = new CustomPlayer();
+        assertNull(p.getLastOpponentChoice());
 
-    final Round r1 = Round.random();
-    p.addRound(r1);
-    assertEquals(r1, p.getLastRound());
+        final Choice c1 = Choice.random();
+        p.addOpponentChoice(c1);
+        assertEquals(c1, p.getLastOpponentChoice());
 
-    final Round r2 = Round.random();
-    p.addRound(r2);
-    assertEquals(r2, p.getLastRound());
-  }
-
-  @Test
-  void getLastNRounds() {
-    Player p = new CustomPlayer();
-    assertEquals(0, p.getLastNRounds(2).size());
-
-    final int nrRoundsAdded = 5;
-    for (int i = 0; i < nrRoundsAdded; i++) {
-      p.addRound(Round.random());
+        final Choice c2 = Choice.random();
+        p.addOpponentChoice(c2);
+        assertEquals(c2, p.getLastOpponentChoice());
     }
 
-    assertEquals(3, p.getLastNRounds(3).size());
-    assertEquals(nrRoundsAdded, p.getLastNRounds(nrRoundsAdded).size());
-    assertEquals(nrRoundsAdded, p.getLastNRounds(nrRoundsAdded + 100).size());
-  }
+    @Test
+    void getLastNRounds() {
+        Player p = new CustomPlayer();
+        assertEquals(0, p.getLastNOpponentChoices(2).size());
+
+        final int nrRoundsAdded = 5;
+        for (int i = 0; i < nrRoundsAdded; i++) {
+            p.addOpponentChoice(Choice.random());
+        }
+
+        assertEquals(3, p.getLastNOpponentChoices(3).size());
+        assertEquals(nrRoundsAdded, p.getLastNOpponentChoices(nrRoundsAdded).size());
+        assertEquals(nrRoundsAdded, p.getLastNOpponentChoices(nrRoundsAdded + 100).size());
+    }
 }

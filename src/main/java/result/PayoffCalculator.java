@@ -1,7 +1,8 @@
 package result;
 
 import player.Choice;
+import player.Player;
 
 public interface PayoffCalculator {
-    RoundPayoff computePayoff(Choice p1choice, Choice p2Choice, ResultType type);
+    void computePayoff(Player p1, Choice p1choice, Player p2, Choice p2Choice);
 }

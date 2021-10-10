@@ -2,68 +2,48 @@ package tournament;
 
 import player.Choice;
 import player.Player;
-import player.Round;
-import player.computer.ComputerPlayer;
-import player.computer.Strategy;
 import result.PayoffCalculator;
-import result.Result;
-import result.RoundPayoff;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
 
 import static java.util.Optional.ofNullable;
-import static player.computer.Strategy.enabledStrategies;
-import static result.ResultType.fromChoices;
 
 public class Tournament {
 
-    public static final long ROUNDS_PER_TOURNAMENT = 100;
+    public static final long ROUNDS_PER_TOURNAMENT = 200;
 
     private final PayoffCalculator calculator;
-    private final Player player;
+    private final Player p1;
+    private final Player p2;
 
-    private final Result result = Result.builder().build();
-
-    public Tournament(PayoffCalculator calculator, Player player) {
-        this.calculator = calculator;
-        this.player = player;
+    public Tournament(PayoffCalculator payoffCalculator, Player p1, Player p2) {
+        this.calculator = payoffCalculator;
+        this.p1 = p1;
+        this.p2 = p2;
     }
 
     public void play() {
-        ComputerPlayer strategy = getRandomStrategy();
-        Collection<RoundPayoff> payoffs = play(strategy);
-
-        this.result.addPayoffs(payoffs);
-        this.result.normalize(ROUNDS_PER_TOURNAMENT);
-    }
-
-    public Result getResult() {
-        return result;
-    }
-
-    private Collection<RoundPayoff> play(Player computer) {
-        List<RoundPayoff> payoffs = new ArrayList<>();
-
         for (int i = 0; i < ROUNDS_PER_TOURNAMENT; i++) {
-            payoffs.add(playRound(computer));
+            playRound();
         }
+        p1.savePoints(p2);
+        p2.savePoints(p1);
 
-        return payoffs;
+        if (p1.getCurrentPoints() == p2.getCurrentPoints()) {
+            p1.addWin();
+            p2.addWin();
+        } else if (p1.getCurrentPoints() > p2.getCurrentPoints()) {
+            p1.addWin();
+        } else {
+            p2.addWin();
+        }
+        p1.reset();
+        p2.reset();
     }
 
-    private RoundPayoff playRound(Player computer) {
-        Choice playerChoice = ofNullable(player.play()).orElse(Choice.random());
-        Choice computerChoice = computer.play();
-        player.addRound(Round.builder().playerChoice(playerChoice).computerChoice(computerChoice).build());
-        return calculator.computePayoff(playerChoice, computerChoice, fromChoices(playerChoice, computerChoice));
-    }
-
-    private ComputerPlayer getRandomStrategy() {
-        final List<Strategy> strategies = enabledStrategies();
-        final int index = new Random().nextInt(strategies.size());
-        return strategies.get(index).getPlayer();
+    private void playRound() {
+        Choice p1Choice = ofNullable(p1.play()).orElse(Choice.random());
+        Choice p2Choice = ofNullable(p2.play()).orElse(Choice.random());
+        p1.addOpponentChoice(p2Choice);
+        p2.addOpponentChoice(p1Choice);
+        calculator.computePayoff(p1, p1Choice, p2, p2Choice);
     }
 }
