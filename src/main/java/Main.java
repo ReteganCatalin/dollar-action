@@ -3,13 +3,14 @@ import player.CustomPlayer;
 import player.Player;
 import result.PayoffCalculator;
 import result.PrisonSentencePayoffCalculator;
+import result.ResultPrinter;
 import result.RoundPayoff;
+import tournament.Tournament;
+import tournament.TournamentRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
-
-import static java.lang.Math.abs;
 
 public class Main {
 
@@ -20,13 +21,14 @@ public class Main {
   @SneakyThrows
   public static void main(String[] args) {
     PayoffCalculator payoffCalculator = new PrisonSentencePayoffCalculator();
+    final ResultPrinter resultPrinter = new ResultPrinter();
+
     Player player = new CustomPlayer();
 
     final List<TournamentRunner> threads = new ArrayList<>();
     launchThreads(payoffCalculator, player, threads);
 
-    final RoundPayoff combinedResults = getResults(threads);
-    printResults(combinedResults);
+    resultPrinter.printResults(getResults(threads), NORMALIZATION_FACTOR);
   }
 
   private static RoundPayoff getResults(List<TournamentRunner> threads) {
@@ -34,22 +36,6 @@ public class Main {
         .map(TournamentRunner::getCombinedResults)
         .reduce(RoundPayoff::reduce)
         .orElse(RoundPayoff.builder().build());
-  }
-
-  private static void printResults(RoundPayoff combinedResults) {
-    final float playerPayoff = combinedResults.getPlayerPayoff() / NORMALIZATION_FACTOR;
-    final float computerPayoff = combinedResults.getComputerPayoff() / NORMALIZATION_FACTOR;
-    final float teamPayoff = combinedResults.sum() / NORMALIZATION_FACTOR;
-    System.out.printf("Player score: %.2f\n" +
-            "Computer score: %.2f\n" +
-            "Team score: %.2f\n" +
-            "Team score special (*): %.2f\n\n\n" +
-            "* the absolute difference between the opponent's scores are is subtracted from the total score",
-        playerPayoff,
-        computerPayoff,
-        teamPayoff,
-        teamPayoff - (abs(playerPayoff - computerPayoff)));
-
   }
 
   private static void launchThreads(PayoffCalculator payoffCalculator, Player player,

@@ -1,3 +1,5 @@
+package tournament;
+
 import result.Result;
 import result.RoundPayoff;
 
