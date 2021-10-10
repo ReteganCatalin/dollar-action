@@ -11,6 +11,6 @@ public class CustomPlayer extends Player {
         final List<Choice> last2computerChoices = getLastNComputerChoices(2);
 
         // todo: implement me
-        return null;
+        return Choice.random();
     }
 }

@@ -1,7 +1,6 @@
 import lombok.SneakyThrows;
 import player.CustomPlayer;
 import player.Player;
-import player.computer.TitForTatPlayer;
 import result.PayoffCalculator;
 import result.PrisonSentencePayoffCalculator;
 import result.ResultPrinter;
@@ -26,10 +25,10 @@ public class Main {
 
         Player player = new CustomPlayer();
 
-        final List<TournamentRunner> threads = new ArrayList<>();
-        launchThreads(payoffCalculator, player, threads);
+        final List<TournamentRunner> runners = new ArrayList<>();
+        launchRunners(payoffCalculator, player, runners);
 
-        resultPrinter.printResults(getResults(threads), NORMALIZATION_FACTOR);
+        resultPrinter.printResults(getResults(runners), NORMALIZATION_FACTOR);
     }
 
     private static RoundPayoff getResults(List<TournamentRunner> threads) {
@@ -39,7 +38,7 @@ public class Main {
                 .orElse(RoundPayoff.empty());
     }
 
-    private static void launchThreads(PayoffCalculator payoffCalculator, Player player,
+    private static void launchRunners(PayoffCalculator payoffCalculator, Player player,
                                       List<TournamentRunner> threads) throws InterruptedException {
         final CountDownLatch latch = new CountDownLatch(NR_THREADS);
 

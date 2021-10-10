@@ -4,6 +4,7 @@ import player.Choice;
 
 import static player.Choice.BETRAY;
 import static player.Choice.COOPERATE;
+import static result.ResultType.*;
 
 public class PrisonSentencePayoffCalculator implements PayoffCalculator {
 
@@ -14,25 +15,33 @@ public class PrisonSentencePayoffCalculator implements PayoffCalculator {
 
     public RoundPayoff computePayoff(Choice p1choice, Choice p2Choice) {
         if (bothCooperate(p1choice, p2Choice)) {
-            return RoundPayoff.builder()
+            RoundPayoff payoff = RoundPayoff.init()
                     .playerPayoff(BOTH_COOPERATION_BONUS)
                     .computerPayoff(BOTH_COOPERATION_BONUS)
                     .build();
+            payoff.setType(COOP_COOP);
+            return payoff;
         } else if (firstCopperatesAndSecondBetrays(p1choice, p2Choice)) {
-            return RoundPayoff.builder()
+            RoundPayoff payoff = RoundPayoff.init()
                     .playerPayoff(BETRAYED_BONUS)
                     .computerPayoff(BETRAYER_BONUS)
                     .build();
+            payoff.setType(COOP_BETRAY);
+            return payoff;
         } else if (firstBetrayesAndSecondCooperates(p1choice, p2Choice)) {
-            return RoundPayoff.builder()
+            RoundPayoff payoff = RoundPayoff.init()
                     .playerPayoff(BETRAYER_BONUS)
                     .computerPayoff(BETRAYED_BONUS)
                     .build();
+            payoff.setType(BETRAY_COOP);
+            return payoff;
         } else if (bothBetrayed(p1choice, p2Choice)) {
-            return RoundPayoff.builder()
+            RoundPayoff payoff = RoundPayoff.init()
                     .playerPayoff(BOTH_BETRAYED_BONUS)
                     .computerPayoff(BOTH_BETRAYED_BONUS)
                     .build();
+            payoff.setType(BETRAY_BETRAY);
+            return payoff;
         }
         throw new RuntimeException("Wtf?");
     }
