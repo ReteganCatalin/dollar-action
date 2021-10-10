@@ -2,15 +2,12 @@ package player;
 
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Getter
 public abstract class Player implements Strategic {
     private final List<Choice> previousOpponentChoices = new ArrayList<>();
-    private final Map<Player, Float> opponentPointMap = new HashMap<>();
+    private final Map<Player, Float> opponentPointMap = new TreeMap<>(Comparator.comparing(Strategic::getStrategy));
     private float currentPoints = .0f;
     private long wins = 0;
     private double average = 0;
@@ -61,6 +58,7 @@ public abstract class Player implements Strategic {
     }
 
     public void printStats() {
+        // todo: pretty print in javafx?
         System.out.printf("%s -> average: %f\n", getStrategy(), average);
     }
 }
