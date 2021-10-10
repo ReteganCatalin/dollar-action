@@ -42,9 +42,6 @@ public class Tournament {
     Result strategyResult = new Result();
     strategyResult.addPayoffs(payoffs);
 
-    System.out.println("For strategy: " + strategy.getStrategy());
-    strategyResult.printResults();
-
     this.result.addPayoffs(payoffs);
   }
 
