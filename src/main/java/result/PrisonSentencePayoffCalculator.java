@@ -4,10 +4,10 @@ import player.Choice;
 
 public class PrisonSentencePayoffCalculator implements PayoffCalculator {
 
-    public static final float BOTH_COOPERATION_BONUS = 2f;
-    public static final float BETRAYER_BONUS = 0f;
-    public static final float BETRAYED_BONUS = 5f;
-    public static final float BOTH_BETRAYED_BONUS = 3f;
+    public static final float BOTH_COOPERATION_BONUS = 3f;
+    public static final float BETRAYER_BONUS = 1f;
+    public static final float BETRAYED_BONUS = 10f;
+    public static final float BOTH_BETRAYED_BONUS = 5f;
 
     public RoundPayoff computePayoff(Choice player, Choice computer, ResultType type) {
         RoundPayoff payoff = RoundPayoff.empty();
