@@ -9,10 +9,14 @@ import result.PayoffCalculator;
 import result.Result;
 import result.RoundPayoff;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
 
 import static java.util.Optional.ofNullable;
+import static player.computer.Strategy.enabledStrategies;
+import static result.ResultType.fromChoices;
 
 public class Tournament {
 
@@ -21,7 +25,7 @@ public class Tournament {
     private final PayoffCalculator calculator;
     private final Player player;
 
-    private final Result result = new Result();
+    private final Result result = Result.builder().build();
 
     public Tournament(PayoffCalculator calculator, Player player) {
         this.calculator = calculator;
@@ -29,11 +33,8 @@ public class Tournament {
     }
 
     public void play() {
-
         ComputerPlayer strategy = getRandomStrategy();
         Collection<RoundPayoff> payoffs = play(strategy);
-        Result strategyResult = new Result();
-        strategyResult.addPayoffs(payoffs);
 
         this.result.addPayoffs(payoffs);
         this.result.normalize(ROUNDS_PER_TOURNAMENT);
@@ -54,21 +55,15 @@ public class Tournament {
     }
 
     private RoundPayoff playRound(Player computer) {
-        Choice p1Choice = ofNullable(player.play()).orElse(Choice.random());
-        Choice p2Choice = computer.play();
-        player.addRound(Round.builder().playerChoice(p1Choice).computerChoice(p2Choice).build());
-        return calculator.computePayoff(p1Choice, p2Choice);
+        Choice playerChoice = ofNullable(player.play()).orElse(Choice.random());
+        Choice computerChoice = computer.play();
+        player.addRound(Round.builder().playerChoice(playerChoice).computerChoice(computerChoice).build());
+        return calculator.computePayoff(playerChoice, computerChoice, fromChoices(playerChoice, computerChoice));
     }
 
     private ComputerPlayer getRandomStrategy() {
         final List<Strategy> strategies = enabledStrategies();
         final int index = new Random().nextInt(strategies.size());
         return strategies.get(index).getPlayer();
-    }
-
-    private List<Strategy> enabledStrategies() {
-        return Arrays.stream(Strategy.values())
-                .filter(Strategy::isEnabled)
-                .collect(Collectors.toList());
     }
 }

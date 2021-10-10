@@ -1,5 +1,9 @@
 package player.computer;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public enum Strategy {
     ALWAYS_COOPERATE(new AlwaysCooperatePlayer(), true),
     ALWAYS_BETRAY(new AlwaysBetrayPlayer(), true),
@@ -14,6 +18,12 @@ public enum Strategy {
     Strategy(ComputerPlayer player, boolean enabled) {
         this.player = player;
         this.enabled = enabled;
+    }
+
+    public static List<Strategy> enabledStrategies() {
+        return Arrays.stream(Strategy.values())
+                .filter(Strategy::isEnabled)
+                .collect(Collectors.toList());
     }
 
     public ComputerPlayer getPlayer() {

@@ -13,8 +13,8 @@ public class ResultPrinter {
 
         System.out.printf("Player score: %.2f\n" +
                         "Computer score: %.2f\n" +
-                        "Team score: %.2f\n" +
-                        "Team score special (*): %.2f\n\n\n" +
+                        "Team score (should minimize): %.2f\n" +
+                        "Team score special (should maximize) (*): %.2f\n\n\n" +
                         "* the absolute difference between the opponent's scores are is subtracted from the total score\n\n\n\n",
                 playerPayoff,
                 computerPayoff,

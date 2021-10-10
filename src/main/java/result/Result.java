@@ -1,5 +1,6 @@
 package result;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -7,12 +8,10 @@ import java.util.Collection;
 import java.util.List;
 
 @Data
+@Builder
 public class Result {
+    @Builder.Default
     private final List<RoundPayoff> payoffs = new ArrayList<>();
-
-    public void addPayoff(RoundPayoff payoff) {
-        payoffs.add(payoff);
-    }
 
     public void addPayoffs(Collection<RoundPayoff> payoffs) {
         this.payoffs.addAll(payoffs);
@@ -34,12 +33,6 @@ public class Result {
         return payoffs.stream()
                 .reduce(RoundPayoff::reduce)
                 .orElse(RoundPayoff.empty());
-    }
-
-    public void printResults() {
-        System.out.printf("Player 1 got a score of: %f\n", getP1Score());
-        System.out.printf("Player 2 got a score of: %f\n", getP2Score());
-        System.out.printf("They both got a score of %f\n\n", getTotalScore());
     }
 
     public void normalize(long roundsPerTournament) {
