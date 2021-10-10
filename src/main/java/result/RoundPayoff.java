@@ -6,10 +6,10 @@ import lombok.Getter;
 @Builder
 @Getter
 public class RoundPayoff {
-    private final int p1payoff;
-    private final int p2payoff;
+  private final float p1payoff;
+  private final float p2payoff;
 
-    public int sum() {
-        return p1payoff + p2payoff;
-    }
+  public float sum() {
+    return p1payoff + p2payoff;
+  }
 }

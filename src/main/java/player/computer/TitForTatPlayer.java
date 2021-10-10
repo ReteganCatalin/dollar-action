@@ -20,11 +20,11 @@ public class TitForTatPlayer extends ComputerPlayer {
     }
 
     private Choice getLastMoveOfOpponent() {
-        List<Round> choiceHistory = getChoiceHistory();
+        List<Round> choiceHistory = getRounds();
         if (choiceHistory.isEmpty()) {
             return COOPERATE;
         } else {
-            return choiceHistory.get(choiceHistory.size() - 1).getP2choice();
+            return choiceHistory.get(choiceHistory.size() - 1).getComputerChoice();
         }
     }
 }
