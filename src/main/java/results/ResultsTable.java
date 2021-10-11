@@ -6,7 +6,6 @@ import player.Strategy;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Vector;
@@ -50,7 +49,7 @@ public class ResultsTable {
 
   private String[] createHeaders() {
     final String[] header;
-    final Stream<String> strategies = Arrays.stream(Strategy.values()).sorted(Comparator.comparing(Enum::name))
+    final Stream<String> strategies = Strategy.enabledStrategies().stream().sorted(Comparator.comparing(Enum::name))
         .map(Enum::name);
     final List<String> headerList = new ArrayList<>();
     headerList.add("Strategy");
