@@ -1,6 +1,7 @@
 package player;
 
 import lombok.Getter;
+import results.ResultsTable;
 
 import java.util.*;
 
@@ -57,8 +58,9 @@ public abstract class Player implements Strategic {
         this.average = opponentPointMap.values().stream().mapToDouble(value -> value).average().getAsDouble();
     }
 
-    public void printStats() {
+    public void printStats(ResultsTable resultsTable) {
         // todo: pretty print in javafx?
         System.out.printf("%s -> average: %f\n", getStrategy(), average);
+        resultsTable.addDataPoints(this);
     }
 }
