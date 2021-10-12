@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+import static player.Strategy.enabledStrategies;
 
 public class ResultsTable {
   private final DefaultTableModel dm;
@@ -49,7 +50,8 @@ public class ResultsTable {
 
   private String[] createHeaders() {
     final String[] header;
-    final Stream<String> strategies = Strategy.enabledStrategies().stream().sorted(Comparator.comparing(Enum::name))
+    final Stream<String> strategies = enabledStrategies().stream()
+        .sorted(Comparator.comparing(Enum::name))
         .map(Enum::name);
     final List<String> headerList = new ArrayList<>();
     headerList.add("Strategy");

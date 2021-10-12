@@ -4,12 +4,14 @@ import player.Strategy;
 import result.AxelrodPayoff;
 import result.PayoffCalculator;
 import results.ResultsTable;
-import tournament.Tournament;
+import round.Round;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.Comparator.comparingDouble;
+import static java.util.stream.Collectors.toList;
+import static player.Strategy.enabledStrategies;
 
 public class Main {
 
@@ -22,26 +24,31 @@ public class Main {
   }
 
   private static void startRoundRobin(PayoffCalculator payoffCalculator, ResultsTable resultsTable) {
-    List<Player> strategies =
-        Strategy.enabledStrategies().stream().map(Strategy::getPlayer).collect(Collectors.toList());
+    List<Player> strategies = enabledStrategies().stream()
+        .map(Strategy::getPlayer).collect(toList());
 
-    List<Tournament> rounds = new ArrayList<>();
+    List<Round> rounds = createRounds(payoffCalculator, strategies);
+
+    rounds.forEach(Round::play);
+
+    strategies.forEach(Player::computeAverage);
+    strategies.sort(comparingDouble(Player::getAverage).reversed());
+    strategies.forEach(resultsTable::addDataPoints);
+  }
+
+  private static List<Round> createRounds(PayoffCalculator payoffCalculator, List<Player> strategies) {
+    List<Round> rounds = new ArrayList<>();
     for (int i = 0; i < strategies.size(); i++) {
       for (int j = i + 1; j < strategies.size(); j++) {
-        rounds.add(Tournament.builder()
-            .calculator(payoffCalculator)
-            .p1(strategies.get(i))
-            .p2(strategies.get(j))
+        rounds.add(Round.builder()
+            .payoffCalculator(payoffCalculator)
+            .player1(strategies.get(i))
+            .player2(strategies.get(j))
             .build()
         );
       }
     }
-
-    rounds.forEach(Tournament::play);
-    strategies.forEach(Player::computeAverage);
-
-    strategies.sort(Comparator.comparingDouble(Player::getAverage).reversed());
-    strategies.forEach(resultsTable::addDataPoints);
+    return rounds;
   }
 
 }
