@@ -1,11 +1,13 @@
 package tournament;
 
+import lombok.Builder;
 import player.Choice;
 import player.Player;
 import result.PayoffCalculator;
 
 import static java.util.Optional.ofNullable;
 
+@Builder
 public class Tournament {
 
   public static final long ROUNDS_PER_TOURNAMENT = 200;

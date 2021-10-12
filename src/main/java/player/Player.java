@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
+import java.util.function.Predicate;
 
 @Getter
 public abstract class Player implements Strategic {
@@ -20,24 +22,6 @@ public abstract class Player implements Strategic {
   }
 
   public abstract Choice play();
-
-  protected Choice getLastOpponentChoice() {
-    return !previousOpponentChoices.isEmpty() ?
-        previousOpponentChoices.get(previousOpponentChoices.size() - 1) : null;
-  }
-
-  protected List<Choice> getLastNOpponentChoices(int n) {
-    final int fromIndex = previousOpponentChoices.size() >= n ? previousOpponentChoices.size() - n : 0;
-    return previousOpponentChoices.subList(fromIndex, previousOpponentChoices.size());
-  }
-
-  protected List<Choice> getOpponentChoices() {
-    return previousOpponentChoices;
-  }
-
-  protected boolean isFirstChoice() {
-    return previousOpponentChoices.isEmpty();
-  }
 
   public void addScore(float points) {
     this.currentPoints += points;
@@ -58,5 +42,29 @@ public abstract class Player implements Strategic {
         .mapToDouble(value -> value)
         .average()
         .orElse(.0f);
+  }
+
+
+  protected Choice getLastOpponentChoice() {
+    return !previousOpponentChoices.isEmpty() ?
+        previousOpponentChoices.get(previousOpponentChoices.size() - 1) : null;
+  }
+
+  protected List<Choice> getLastNOpponentChoices(int n) {
+    final int fromIndex = previousOpponentChoices.size() >= n ? previousOpponentChoices.size() - n : 0;
+    return previousOpponentChoices.subList(fromIndex, previousOpponentChoices.size());
+  }
+
+  protected List<Choice> getAllPreviousOpponentChoices() {
+    return previousOpponentChoices;
+  }
+
+  protected boolean isFirstChoice() {
+    return previousOpponentChoices.isEmpty();
+  }
+
+  protected boolean lastNChoicesAre(int n, Choice c) {
+    return getLastNOpponentChoices(n).stream()
+        .allMatch(Predicate.isEqual(c));
   }
 }

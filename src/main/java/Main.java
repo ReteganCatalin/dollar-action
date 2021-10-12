@@ -28,7 +28,12 @@ public class Main {
     List<Tournament> rounds = new ArrayList<>();
     for (int i = 0; i < strategies.size(); i++) {
       for (int j = i + 1; j < strategies.size(); j++) {
-        rounds.add(new Tournament(payoffCalculator, strategies.get(i), strategies.get(j)));
+        rounds.add(Tournament.builder()
+            .calculator(payoffCalculator)
+            .p1(strategies.get(i))
+            .p2(strategies.get(j))
+            .build()
+        );
       }
     }
 
