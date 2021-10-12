@@ -4,7 +4,7 @@ import player.Choice;
 import player.Player;
 import player.Strategy;
 
-import static player.Choice.COOPERATE;
+import static player.Choice.SILENT;
 import static player.Strategy.TIT_FOR_TAT;
 
 public class TitForTatPlayer extends Player {
@@ -20,7 +20,7 @@ public class TitForTatPlayer extends Player {
 
   private Choice getLastMoveOfOpponent() {
     if (isFirstChoice()) {
-      return COOPERATE;
+      return SILENT;
     } else {
       return getLastOpponentChoice();
     }

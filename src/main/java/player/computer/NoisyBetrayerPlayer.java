@@ -7,7 +7,7 @@ import player.Strategy;
 import java.util.Random;
 
 import static player.Choice.BETRAY;
-import static player.Choice.COOPERATE;
+import static player.Choice.SILENT;
 import static player.Strategy.NOISY_BETRAYER;
 
 public class NoisyBetrayerPlayer extends Player {
@@ -16,7 +16,7 @@ public class NoisyBetrayerPlayer extends Player {
   @Override
   public Choice play() {
     final double noise = new Random().nextDouble();
-    return noise < NOISE_FACTOR ? BETRAY : COOPERATE;
+    return noise < NOISE_FACTOR ? BETRAY : SILENT;
   }
 
   @Override

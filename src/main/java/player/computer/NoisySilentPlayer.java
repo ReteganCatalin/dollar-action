@@ -7,21 +7,21 @@ import player.Strategy;
 import java.util.Random;
 
 import static player.Choice.BETRAY;
-import static player.Choice.COOPERATE;
-import static player.Strategy.NOISY_COOPERATOR;
+import static player.Choice.SILENT;
+import static player.Strategy.NOISY_SILENT;
 
-public class NoisyCooperatorPlayer extends Player {
+public class NoisySilentPlayer extends Player {
 
   private static final float NOISE_FACTOR = .98f;
 
   @Override
   public Choice play() {
     final double noise = new Random().nextDouble();
-    return noise < NOISE_FACTOR ? COOPERATE : BETRAY;
+    return noise < NOISE_FACTOR ? SILENT : BETRAY;
   }
 
   @Override
   public Strategy getStrategy() {
-    return NOISY_COOPERATOR;
+    return NOISY_SILENT;
   }
 }

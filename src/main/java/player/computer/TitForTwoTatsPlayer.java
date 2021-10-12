@@ -7,20 +7,20 @@ import player.Strategy;
 import java.util.List;
 
 import static player.Choice.BETRAY;
-import static player.Choice.COOPERATE;
+import static player.Choice.SILENT;
 import static player.Strategy.TIT_FOR_TWO_TATS;
 
 public class TitForTwoTatsPlayer extends Player {
   @Override
   public Choice play() {
     if (isFirstChoice()) {
-      return COOPERATE;
+      return SILENT;
     }
     final List<Choice> last2OpponentChoices = getLastNOpponentChoices(2);
     if (last2OpponentChoices.stream().allMatch(Choice::betrays)) {
       return BETRAY;
     }
-    return COOPERATE;
+    return SILENT;
   }
 
   @Override

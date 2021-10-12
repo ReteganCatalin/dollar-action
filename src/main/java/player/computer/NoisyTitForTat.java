@@ -7,7 +7,7 @@ import player.Strategy;
 import java.util.Random;
 
 import static player.Choice.BETRAY;
-import static player.Choice.COOPERATE;
+import static player.Choice.SILENT;
 import static player.Strategy.NOISY_TIT_FOR_TAT;
 
 public class NoisyTitForTat extends Player {
@@ -16,7 +16,7 @@ public class NoisyTitForTat extends Player {
   @Override
   public Choice play() {
     if (isFirstChoice()) {
-      return COOPERATE;
+      return SILENT;
     }
     final double noise = new Random().nextDouble();
     return noise > NOISE_FACTOR ? BETRAY : getLastOpponentChoice();

@@ -3,15 +3,15 @@ package player;
 import java.util.Random;
 
 public enum Choice {
-  COOPERATE,
+  SILENT,
   BETRAY;
 
   public static Choice random() {
-    return new Random().nextBoolean() ? COOPERATE : BETRAY;
+    return new Random().nextBoolean() ? SILENT : BETRAY;
   }
 
-  public boolean cooperates() {
-    return this.equals(COOPERATE);
+  public boolean isSilent() {
+    return this.equals(SILENT);
   }
 
   public boolean betrays() {

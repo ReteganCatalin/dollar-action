@@ -4,17 +4,17 @@ import player.Choice;
 import player.Player;
 import player.Strategy;
 
-import static player.Choice.COOPERATE;
-import static player.Strategy.ALWAYS_COOPERATE;
+import static player.Choice.SILENT;
+import static player.Strategy.ALWAYS_SILENT;
 
-public class AlwaysCooperatePlayer extends Player {
+public class AlwaysSilentPlayer extends Player {
   @Override
   public Choice play() {
-    return COOPERATE;
+    return SILENT;
   }
 
   @Override
   public Strategy getStrategy() {
-    return ALWAYS_COOPERATE;
+    return ALWAYS_SILENT;
   }
 }
