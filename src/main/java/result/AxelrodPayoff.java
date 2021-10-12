@@ -10,7 +10,7 @@ public class AxelrodPayoff implements PayoffCalculator {
   public static final float BETRAYED_BONUS = 0f;
   public static final float BOTH_BETRAYED_BONUS = 1f;
 
-  public void computePayoff(Player p1, Choice p1choice, Player p2, Choice p2Choice) {
+  public void payoffPlayers(Player p1, Choice p1choice, Player p2, Choice p2Choice) {
     if (bothCooperate(p1choice, p2Choice)) {
       p1.addScore(BOTH_COOPERATION_BONUS);
       p2.addScore(BOTH_COOPERATION_BONUS);

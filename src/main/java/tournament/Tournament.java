@@ -44,6 +44,6 @@ public class Tournament {
     Choice p2Choice = ofNullable(p2.play()).orElse(Choice.random());
     p1.addOpponentChoice(p2Choice);
     p2.addOpponentChoice(p1Choice);
-    calculator.computePayoff(p1, p1Choice, p2, p2Choice);
+    calculator.payoffPlayers(p1, p1Choice, p2, p2Choice);
   }
 }

@@ -22,7 +22,8 @@ public abstract class Player implements Strategic {
   public abstract Choice play();
 
   protected Choice getLastOpponentChoice() {
-    return !previousOpponentChoices.isEmpty() ? previousOpponentChoices.get(previousOpponentChoices.size() - 1) : null;
+    return !previousOpponentChoices.isEmpty() ?
+        previousOpponentChoices.get(previousOpponentChoices.size() - 1) : null;
   }
 
   protected List<Choice> getLastNOpponentChoices(int n) {
@@ -48,12 +49,8 @@ public abstract class Player implements Strategic {
   }
 
   public void savePoints(Player other) {
-    if (opponentPointMap.containsKey(other)) {
-      Float prev = opponentPointMap.get(other);
-      opponentPointMap.put(other, prev + currentPoints);
-    } else {
-      opponentPointMap.put(other, currentPoints);
-    }
+    final float updatedPoints = opponentPointMap.getOrDefault(other, .0f) + currentPoints;
+    opponentPointMap.put(other, updatedPoints);
   }
 
   public void computeAverage() {
