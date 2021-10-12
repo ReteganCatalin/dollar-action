@@ -1,38 +1,39 @@
 package player;
 
 import org.junit.jupiter.api.Test;
+import player.actual.Team15Player;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class PlayerTest {
 
-    @Test
-    void getLastRound() {
-        Player p = new CustomPlayer();
-        assertNull(p.getLastOpponentChoice());
+  @Test
+  void getLastRound() {
+    Player p = new Team15Player();
+    assertNull(p.getLastOpponentChoice());
 
-        final Choice c1 = Choice.random();
-        p.addOpponentChoice(c1);
-        assertEquals(c1, p.getLastOpponentChoice());
+    final Choice c1 = Choice.random();
+    p.addOpponentChoice(c1);
+    assertEquals(c1, p.getLastOpponentChoice());
 
-        final Choice c2 = Choice.random();
-        p.addOpponentChoice(c2);
-        assertEquals(c2, p.getLastOpponentChoice());
+    final Choice c2 = Choice.random();
+    p.addOpponentChoice(c2);
+    assertEquals(c2, p.getLastOpponentChoice());
+  }
+
+  @Test
+  void getLastNRounds() {
+    Player p = new Team15Player();
+    assertEquals(0, p.getLastNOpponentChoices(2).size());
+
+    final int nrRoundsAdded = 5;
+    for (int i = 0; i < nrRoundsAdded; i++) {
+      p.addOpponentChoice(Choice.random());
     }
 
-    @Test
-    void getLastNRounds() {
-        Player p = new CustomPlayer();
-        assertEquals(0, p.getLastNOpponentChoices(2).size());
-
-        final int nrRoundsAdded = 5;
-        for (int i = 0; i < nrRoundsAdded; i++) {
-            p.addOpponentChoice(Choice.random());
-        }
-
-        assertEquals(3, p.getLastNOpponentChoices(3).size());
-        assertEquals(nrRoundsAdded, p.getLastNOpponentChoices(nrRoundsAdded).size());
-        assertEquals(nrRoundsAdded, p.getLastNOpponentChoices(nrRoundsAdded + 100).size());
-    }
+    assertEquals(3, p.getLastNOpponentChoices(3).size());
+    assertEquals(nrRoundsAdded, p.getLastNOpponentChoices(nrRoundsAdded).size());
+    assertEquals(nrRoundsAdded, p.getLastNOpponentChoices(nrRoundsAdded + 100).size());
+  }
 }

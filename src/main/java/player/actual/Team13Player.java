@@ -1,12 +1,16 @@
-package player;
+package player.actual;
+
+import player.Choice;
+import player.Player;
+import player.Strategy;
 
 import java.util.List;
 
 import static player.Choice.SILENT;
-import static player.Strategy.CUSTOM;
+import static player.Strategy.TEAM_13;
+import static player.Strategy.TEAM_2;
 
-public class CustomPlayer extends Player {
-
+public class Team13Player extends Player {
   @Override
   public Choice play() {
     final List<Choice> allPreviousOpponentChoices = getAllPreviousOpponentChoices();
@@ -21,6 +25,6 @@ public class CustomPlayer extends Player {
 
   @Override
   public Strategy getStrategy() {
-    return CUSTOM;
+    return TEAM_13;
   }
 }
