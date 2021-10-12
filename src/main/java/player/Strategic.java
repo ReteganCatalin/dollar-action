@@ -1,6 +1,6 @@
 package player;
 
 public interface Strategic {
-    Strategy getStrategy();
+  Strategy getStrategy();
 
 }

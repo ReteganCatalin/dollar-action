@@ -36,7 +36,7 @@ public class Main {
     strategies.forEach(Player::computeAverage);
 
     strategies.sort(Comparator.comparingDouble(Player::getAverage).reversed());
-    strategies.forEach(strategy -> strategy.printStats(resultsTable));
+    strategies.forEach(resultsTable::addDataPoints);
   }
 
 }

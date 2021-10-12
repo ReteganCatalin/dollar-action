@@ -12,16 +12,16 @@ import static player.Strategy.NOISY_COOPERATOR;
 
 public class NoisyCooperatorPlayer extends Player {
 
-    private static final float NOISE_FACTOR = .98f;
+  private static final float NOISE_FACTOR = .98f;
 
-    @Override
-    public Choice play() {
-        final double noise = new Random().nextDouble();
-        return noise < NOISE_FACTOR ? COOPERATE : BETRAY;
-    }
+  @Override
+  public Choice play() {
+    final double noise = new Random().nextDouble();
+    return noise < NOISE_FACTOR ? COOPERATE : BETRAY;
+  }
 
-    @Override
-    public Strategy getStrategy() {
-        return NOISY_COOPERATOR;
-    }
+  @Override
+  public Strategy getStrategy() {
+    return NOISY_COOPERATOR;
+  }
 }

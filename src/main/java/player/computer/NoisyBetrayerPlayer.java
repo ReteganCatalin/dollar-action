@@ -11,16 +11,16 @@ import static player.Choice.COOPERATE;
 import static player.Strategy.NOISY_BETRAYER;
 
 public class NoisyBetrayerPlayer extends Player {
-    private static final float NOISE_FACTOR = .98f;
+  private static final float NOISE_FACTOR = .98f;
 
-    @Override
-    public Choice play() {
-        final double noise = new Random().nextDouble();
-        return noise < NOISE_FACTOR ? BETRAY : COOPERATE;
-    }
+  @Override
+  public Choice play() {
+    final double noise = new Random().nextDouble();
+    return noise < NOISE_FACTOR ? BETRAY : COOPERATE;
+  }
 
-    @Override
-    public Strategy getStrategy() {
-        return NOISY_BETRAYER;
-    }
+  @Override
+  public Strategy getStrategy() {
+    return NOISY_BETRAYER;
+  }
 }

@@ -1,7 +1,6 @@
 package player;
 
 import lombok.Getter;
-import results.ResultsTable;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -14,7 +13,6 @@ public abstract class Player implements Strategic {
   private final List<Choice> previousOpponentChoices = new ArrayList<>();
   private final Map<Player, Float> opponentPointMap = new TreeMap<>(Comparator.comparing(Strategic::getStrategy));
   private float currentPoints = .0f;
-  private long wins = 0;
   private double average = 0;
 
   public void addOpponentChoice(Choice c) {
@@ -49,10 +47,6 @@ public abstract class Player implements Strategic {
     currentPoints = 0;
   }
 
-  public void addWin() {
-    this.wins++;
-  }
-
   public void savePoints(Player other) {
     if (opponentPointMap.containsKey(other)) {
       Float prev = opponentPointMap.get(other);
@@ -63,11 +57,9 @@ public abstract class Player implements Strategic {
   }
 
   public void computeAverage() {
-    this.average = opponentPointMap.values().stream().mapToDouble(value -> value).average().getAsDouble();
-  }
-
-  public void printStats(ResultsTable resultsTable) {
-    System.out.printf("%s -> average: %f\n", getStrategy(), average);
-    resultsTable.addDataPoints(this);
+    this.average = opponentPointMap.values().stream()
+        .mapToDouble(value -> value)
+        .average()
+        .orElse(.0f);
   }
 }

@@ -8,13 +8,13 @@ import static player.Strategy.RANDOM;
 
 public class CompletelyRandomPlayer extends Player {
 
-    @Override
-    public Choice play() {
-        return Choice.random();
-    }
+  @Override
+  public Choice play() {
+    return Choice.random();
+  }
 
-    @Override
-    public Strategy getStrategy() {
-        return RANDOM;
-    }
+  @Override
+  public Strategy getStrategy() {
+    return RANDOM;
+  }
 }
