@@ -12,14 +12,7 @@ import static player.Strategy.PRIZONIERII_DIN_ALCATRAZ;
 public class PrizonieriiDinAlcatrazPlayer extends Player {
   @Override
   public Choice play() {
-    final List<Choice> allPreviousOpponentChoices = getAllPreviousOpponentChoices();
-    final Choice lastOpponentChoice = getLastOpponentChoice();
-    final List<Choice> last2OpponentChoices = getLastNOpponentChoices(2);
-    final boolean firstChoice = isFirstChoice();
-    final boolean last4ChoicesAreSilent = lastNChoicesAre(4, SILENT);
-
-    // todo: implement me
-    return Choice.random();
+    return SILENT;
   }
 
   @Override

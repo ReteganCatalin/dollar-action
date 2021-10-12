@@ -6,6 +6,7 @@ import player.Strategy;
 
 import java.util.List;
 
+import static player.Choice.BETRAY;
 import static player.Choice.SILENT;
 import static player.Strategy.NASH_NON_EQ;
 
@@ -18,8 +19,17 @@ public class NashNonEquilibriumPlayer extends Player {
     final boolean firstChoice = isFirstChoice();
     final boolean last4ChoicesAreSilent = lastNChoicesAre(4, SILENT);
 
-    // todo: implement me
-    return Choice.random();
+    if (firstChoice) {
+      return SILENT;
+    }
+
+    if (lastNChoicesAre(2, SILENT)) {
+      return BETRAY;
+    } else if (lastNChoicesAre(2, BETRAY)){
+      return BETRAY;
+    } else {
+      return SILENT;
+    }
   }
 
   @Override

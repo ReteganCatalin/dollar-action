@@ -6,6 +6,7 @@ import player.Strategy;
 
 import java.util.List;
 
+import static player.Choice.BETRAY;
 import static player.Choice.SILENT;
 import static player.Strategy.ABC;
 
@@ -18,8 +19,15 @@ public class ABCPlayer extends Player {
     final boolean firstChoice = isFirstChoice();
     final boolean last4ChoicesAreSilent = lastNChoicesAre(4, SILENT);
 
-    // todo: implement me
-    return Choice.random();
+    return copycatStrategy();
+  }
+
+  private Choice copycatStrategy() {
+    return isFirstChoice() ? SILENT : getLastOpponentChoice();
+  }
+
+  private Choice cheatStrategy() {
+    return BETRAY;
   }
 
   @Override

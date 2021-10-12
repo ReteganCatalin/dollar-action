@@ -1,7 +1,6 @@
 package player;
 
 import org.junit.jupiter.api.Test;
-import player.actual.Team15Player;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;

@@ -18,8 +18,11 @@ public class TheFarAwaysPlayer extends Player {
     final boolean firstChoice = isFirstChoice();
     final boolean last4ChoicesAreSilent = lastNChoicesAre(4, SILENT);
 
-    // todo: implement me
-    return Choice.random();
+    if (firstChoice) {
+      return SILENT;
+    }
+
+    return lastOpponentChoice;
   }
 
   @Override
