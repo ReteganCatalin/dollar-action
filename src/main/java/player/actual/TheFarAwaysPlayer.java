@@ -7,10 +7,9 @@ import player.Strategy;
 import java.util.List;
 
 import static player.Choice.SILENT;
-import static player.Strategy.TEAM_2;
-import static player.Strategy.TEAM_4;
+import static player.Strategy.THE_FAR_AWAYS;
 
-public class Team4Player extends Player {
+public class TheFarAwaysPlayer extends Player {
   @Override
   public Choice play() {
     final List<Choice> allPreviousOpponentChoices = getAllPreviousOpponentChoices();
@@ -25,6 +24,6 @@ public class Team4Player extends Player {
 
   @Override
   public Strategy getStrategy() {
-    return TEAM_4;
+    return THE_FAR_AWAYS;
   }
 }

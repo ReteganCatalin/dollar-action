@@ -6,14 +6,14 @@ import player.actual.Team12Player;
 import player.actual.Team13Player;
 import player.actual.Team14Player;
 import player.actual.Team15Player;
-import player.actual.Team1Player;
-import player.actual.Team2Player;
-import player.actual.Team3Player;
-import player.actual.Team4Player;
-import player.actual.Team5Player;
-import player.actual.Team6Player;
-import player.actual.Team7Player;
-import player.actual.Team8Player;
+import player.actual.ABCPlayer;
+import player.actual.CloudflightersPlayer;
+import player.actual.PrizonieriiDinAlcatrazPlayer;
+import player.actual.EmanueiiPlayer;
+import player.actual.NashNonEquilibriumPlayer;
+import player.actual.EchipaTreiPlayer;
+import player.actual.TheFarAwaysPlayer;
+import player.actual.GitGoodPlayer;
 import player.actual.Team9Player;
 import player.computer.CompletelyRandomPlayer;
 
@@ -23,14 +23,14 @@ import java.util.stream.Collectors;
 
 public enum Strategy {
   RANDOM(new CompletelyRandomPlayer(), true),
-  TEAM_1(new Team1Player(), true),
-  TEAM_2(new Team2Player(), true),
-  TEAM_3(new Team3Player(), true),
-  TEAM_4(new Team4Player(), true),
-  TEAM_5(new Team5Player(), true),
-  TEAM_6(new Team6Player(), true),
-  TEAM_7(new Team7Player(), true),
-  TEAM_8(new Team8Player(), true),
+  ABC(new ABCPlayer(), true),
+  CLOUDFLIGHTERS(new CloudflightersPlayer(), true),
+  PRIZONIERII_DIN_ALCATRAZ(new PrizonieriiDinAlcatrazPlayer(), true),
+  EMANUEII(new EmanueiiPlayer(), true),
+  NASH_NON_EQ(new NashNonEquilibriumPlayer(), true),
+  ECHIPA_3(new EchipaTreiPlayer(), true),
+  THE_FAR_AWAYS(new TheFarAwaysPlayer(), true),
+  GIT_GOOD(new GitGoodPlayer(), true),
   TEAM_9(new Team9Player(), true),
   TEAM_10(new Team10Player(), true),
   TEAM_11(new Team11Player(), true),

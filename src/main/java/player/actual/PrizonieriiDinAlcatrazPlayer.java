@@ -7,10 +7,9 @@ import player.Strategy;
 import java.util.List;
 
 import static player.Choice.SILENT;
-import static player.Strategy.TEAM_2;
-import static player.Strategy.TEAM_3;
+import static player.Strategy.PRIZONIERII_DIN_ALCATRAZ;
 
-public class Team3Player extends Player {
+public class PrizonieriiDinAlcatrazPlayer extends Player {
   @Override
   public Choice play() {
     final List<Choice> allPreviousOpponentChoices = getAllPreviousOpponentChoices();
@@ -25,6 +24,6 @@ public class Team3Player extends Player {
 
   @Override
   public Strategy getStrategy() {
-    return TEAM_3;
+    return PRIZONIERII_DIN_ALCATRAZ;
   }
 }

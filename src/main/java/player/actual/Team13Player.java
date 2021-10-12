@@ -8,7 +8,6 @@ import java.util.List;
 
 import static player.Choice.SILENT;
 import static player.Strategy.TEAM_13;
-import static player.Strategy.TEAM_2;
 
 public class Team13Player extends Player {
   @Override

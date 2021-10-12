@@ -7,9 +7,9 @@ import player.Strategy;
 import java.util.List;
 
 import static player.Choice.SILENT;
-import static player.Strategy.TEAM_6;
+import static player.Strategy.NASH_NON_EQ;
 
-public class Team6Player extends Player {
+public class NashNonEquilibriumPlayer extends Player {
   @Override
   public Choice play() {
     final List<Choice> allPreviousOpponentChoices = getAllPreviousOpponentChoices();
@@ -24,6 +24,6 @@ public class Team6Player extends Player {
 
   @Override
   public Strategy getStrategy() {
-    return TEAM_6;
+    return NASH_NON_EQ;
   }
 }
