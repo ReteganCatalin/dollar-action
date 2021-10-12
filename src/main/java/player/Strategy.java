@@ -15,28 +15,14 @@ import player.actual.Team6Player;
 import player.actual.Team7Player;
 import player.actual.Team8Player;
 import player.actual.Team9Player;
-import player.computer.AlwaysBetrayPlayer;
-import player.computer.AlwaysSilentPlayer;
 import player.computer.CompletelyRandomPlayer;
-import player.computer.NoisyBetrayerPlayer;
-import player.computer.NoisySilentPlayer;
-import player.computer.NoisyTitForTat;
-import player.computer.TitForTatPlayer;
-import player.computer.TitForTwoTatsPlayer;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public enum Strategy {
-  ALWAYS_SILENT(new AlwaysSilentPlayer(), true),
-  ALWAYS_BETRAY(new AlwaysBetrayPlayer(), true),
   RANDOM(new CompletelyRandomPlayer(), true),
-  TIT_FOR_TAT(new TitForTatPlayer(), true),
-  NOISY_SILENT(new NoisySilentPlayer(), true),
-  NOISY_BETRAYER(new NoisyBetrayerPlayer(), true),
-  TIT_FOR_TWO_TATS(new TitForTwoTatsPlayer(), true),
-  NOISY_TIT_FOR_TAT(new NoisyTitForTat(), true),
   TEAM_1(new Team1Player(), true),
   TEAM_2(new Team2Player(), true),
   TEAM_3(new Team3Player(), true),
