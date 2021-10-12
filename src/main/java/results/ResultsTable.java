@@ -1,10 +1,10 @@
 package results;
 
 import player.Player;
-import player.Strategy;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -25,8 +25,11 @@ public class ResultsTable {
     header = createHeaders();
 
     JTable table = new JTable();
-    table.setBounds(30, 40, 400, 500);
+    table.setBounds(30, 40, 1800, 1000);
+    table.setRowHeight(40);
+    table.setFont(new Font("Serif", Font.PLAIN, 40));
     dm = createDataModel(table);
+    table.getColumnModel().getColumn(0).setPreferredWidth(200);
 
     generalLayoutSetup(frame, table);
   }
@@ -34,7 +37,7 @@ public class ResultsTable {
   private void generalLayoutSetup(JFrame frame, JTable table) {
     JScrollPane sp = new JScrollPane(table);
     frame.add(sp);
-    frame.setSize(800, 400);
+    frame.setSize(1800, 1000);
     frame.setVisible(true);
     frame.setLocationRelativeTo(null);
     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);

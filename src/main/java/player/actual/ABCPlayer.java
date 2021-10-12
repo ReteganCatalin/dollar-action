@@ -1,5 +1,4 @@
 package player.actual;
-
 import player.Choice;
 import player.Player;
 import player.Strategy;
@@ -19,11 +18,33 @@ public class ABCPlayer extends Player {
     final boolean firstChoice = isFirstChoice();
     final boolean last4ChoicesAreSilent = lastNChoicesAre(4, SILENT);
 
-    return copycatStrategy();
+
+
+    return strat();
+  }
+
+  private int roundNumber() {
+    return getAllPreviousOpponentChoices().size();
   }
 
   private Choice copycatStrategy() {
+    if (roundNumber() >= 199) {
+      return BETRAY;
+    }
     return isFirstChoice() ? SILENT : getLastOpponentChoice();
+  }
+
+  private Choice strat() {
+    if (roundNumber() < 5) {
+      return copycatStrategy();
+    } else {
+      long betrayCount = getAllPreviousOpponentChoices().stream().filter(Choice::betrays).count();
+      if (betrayCount > 1) {
+        return BETRAY;
+      } else {
+        return copycatStrategy();
+      }
+    }
   }
 
   private Choice cheatStrategy() {

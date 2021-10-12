@@ -25,12 +25,13 @@ public class NashNonEquilibriumPlayer extends Player {
 
     if (lastNChoicesAre(2, SILENT)) {
       return BETRAY;
-    } else if (lastNChoicesAre(2, BETRAY)){
+    } else if (lastNChoicesAre(10, BETRAY)){
       return BETRAY;
     } else {
       return SILENT;
     }
   }
+
 
   @Override
   public Strategy getStrategy() {

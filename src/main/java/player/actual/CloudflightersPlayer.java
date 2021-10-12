@@ -19,17 +19,12 @@ public class CloudflightersPlayer extends Player {
     final boolean firstChoice = isFirstChoice();
     final boolean last4ChoicesAreSilent = lastNChoicesAre(4, SILENT);
 
-    // todo: implement me
-    if (firstChoice) {
+    if (allPreviousOpponentChoices.size() < 2) {
       return SILENT;
     }
 
-    if (allPreviousOpponentChoices.size() == 199) {
+    if (lastNChoicesAre(3, SILENT)) {
       return BETRAY;
-    }
-
-    if (last4ChoicesAreSilent) {
-      return SILENT;
     }
 
     int b = (int) allPreviousOpponentChoices.stream().filter(choice -> choice == BETRAY).count();

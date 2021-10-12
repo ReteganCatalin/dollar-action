@@ -19,15 +19,19 @@ public class EmanueiiPlayer extends Player {
     final boolean firstChoice = isFirstChoice();
     final boolean last4ChoicesAreSilent = lastNChoicesAre(4, SILENT);
 
-// todo: implement me
-
-    if (isFirstChoice()) {
-      return Choice.BETRAY;
+    if (firstChoice) {
+      return SILENT;
     }
-    if (computeScore() == BETRAY) {
+    if (lastNChoicesAre(1, SILENT) && computeScore() == BETRAY){
       return BETRAY;
     }
-    return SILENT;
+    else if (lastNChoicesAre(2, SILENT)) {
+      return BETRAY;
+    } else if (computeScore() == BETRAY && lastNChoicesAre(2, BETRAY)){
+      return BETRAY;
+    } else {
+      return SILENT;
+    }
   }
 
   @Override

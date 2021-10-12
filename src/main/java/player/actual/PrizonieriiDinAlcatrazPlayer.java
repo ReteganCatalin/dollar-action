@@ -6,13 +6,27 @@ import player.Strategy;
 
 import java.util.List;
 
+import static player.Choice.BETRAY;
 import static player.Choice.SILENT;
 import static player.Strategy.PRIZONIERII_DIN_ALCATRAZ;
 
 public class PrizonieriiDinAlcatrazPlayer extends Player {
   @Override
   public Choice play() {
-    return SILENT;
+    if (isFirstChoice()) {
+      return BETRAY;
+    }
+
+    List<Choice> allPreviousOpponentChoices = getAllPreviousOpponentChoices();
+    long silentCount = allPreviousOpponentChoices.stream().filter(Choice::isSilent).count();
+    long betrayCount = allPreviousOpponentChoices.stream().filter(Choice::betrays).count();
+
+
+    if (silentCount > betrayCount) {
+      return SILENT;
+    }
+
+    return BETRAY;
   }
 
   @Override

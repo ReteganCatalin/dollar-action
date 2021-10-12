@@ -18,13 +18,17 @@ public class GitGoodPlayer extends Player {
     final Choice lastOpponentChoice = getLastOpponentChoice();
     final List<Choice> last2OpponentChoices = getLastNOpponentChoices(2);
     final boolean firstChoice = isFirstChoice();
-    final boolean last4ChoicesAreSilent = lastNChoicesAre(4, SILENT);
+    final boolean last2ChoicesAreSilent = lastNChoicesAre(2, SILENT);
 
-    if (!firstChoice) {
-      return getMostFrequentChoice(allPreviousOpponentChoices);
+    if(allPreviousOpponentChoices.size() < 4) return SILENT;
+
+    if(Choice.random().equals(SILENT) && Choice.random().equals(SILENT)){
+      return Choice.random();
     }
 
-    return Choice.random();
+    if(last2ChoicesAreSilent) return BETRAY;
+
+    return getMostFrequentChoice(allPreviousOpponentChoices);
   }
 
   private Choice getMostFrequentChoice(List<Choice> allPreviousOpponentChoices) {
@@ -34,9 +38,9 @@ public class GitGoodPlayer extends Player {
     allPreviousOpponentChoices
         .forEach(choice -> map.put(choice, map.get(choice) + 1));
     if(map.get(BETRAY) > map.get(SILENT)){
-      return SILENT;
+      return BETRAY;
     }
-    return BETRAY;
+    return SILENT;
   }
 
 
