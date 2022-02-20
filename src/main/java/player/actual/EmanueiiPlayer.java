@@ -14,6 +14,10 @@ public class EmanueiiPlayer extends Player {
   @Override
   public float play(float bid) {
     Choice result = Choice.random();
+    if(bid == 0f)
+    {
+      return bid + 5f;
+    }
     if (result == Choice.BID) {
       return bid + 5f;
     } else {

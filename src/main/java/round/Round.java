@@ -40,7 +40,6 @@ public class Round {
                     playRound();
                 }
             }
-
         }
         savePoints();
         reset();

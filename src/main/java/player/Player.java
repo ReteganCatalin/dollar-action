@@ -1,6 +1,7 @@
 package player;
 
 import lombok.Getter;
+import round.Round;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -48,7 +49,7 @@ public abstract class Player implements Strategic {
     }
 
     public void savePoints(Player other) {
-        final float updatedPoints = opponentPointMap.getOrDefault(other, .0f) + currentPoints;
+        final float updatedPoints = (opponentPointMap.getOrDefault(other, .0f) + currentPoints) / Round.ROUNDS_PER_TOURNAMENT;
         opponentPointMap.put(other, updatedPoints);
     }
 
@@ -75,7 +76,7 @@ public abstract class Player implements Strategic {
     }
 
     protected boolean isFirstBid() {
-        return previousOpponentMaxBids.isEmpty();
+        return previousOpponentBids.isEmpty();
     }
 
     protected boolean lastNMaxBidsAreUnderBid(int n, float bid) {
