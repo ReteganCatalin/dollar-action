@@ -21,7 +21,7 @@ public class ResultsTable {
 
   public ResultsTable() {
     JFrame frame = new JFrame();
-    frame.setTitle("Prisoner's Dilemma");
+    frame.setTitle("Ebay from Hell");
     header = createHeaders();
 
     JTable table = new JTable();
@@ -57,7 +57,7 @@ public class ResultsTable {
         .sorted(Comparator.comparing(Enum::name))
         .map(Enum::name);
     final List<String> headerList = new ArrayList<>();
-    headerList.add("Strategy");
+    headerList.add("Team\\Opponent");
     headerList.addAll(strategies.collect(Collectors.toList()));
     headerList.add("Average");
     header = headerList.toArray(new String[0]);

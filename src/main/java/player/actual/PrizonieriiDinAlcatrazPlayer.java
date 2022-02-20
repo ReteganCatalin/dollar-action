@@ -1,36 +1,23 @@
 package player.actual;
 
-import player.Choice;
 import player.Player;
 import player.Strategy;
 
-import java.util.List;
-
-import static player.Choice.BETRAY;
-import static player.Choice.SILENT;
 import static player.Strategy.PRIZONIERII_DIN_ALCATRAZ;
 
 public class PrizonieriiDinAlcatrazPlayer extends Player {
-  @Override
-  public Choice play() {
-    if (isFirstChoice()) {
-      return BETRAY;
+    @Override
+    public float play(float bid) {
+        if (bid > 100f)
+            return bid;
+        else {
+            return bid + 1f;
+        }
+
     }
 
-    List<Choice> allPreviousOpponentChoices = getAllPreviousOpponentChoices();
-    long silentCount = allPreviousOpponentChoices.stream().filter(Choice::isSilent).count();
-    long betrayCount = allPreviousOpponentChoices.stream().filter(Choice::betrays).count();
-
-
-    if (silentCount > betrayCount) {
-      return SILENT;
+    @Override
+    public Strategy getStrategy() {
+        return PRIZONIERII_DIN_ALCATRAZ;
     }
-
-    return BETRAY;
-  }
-
-  @Override
-  public Strategy getStrategy() {
-    return PRIZONIERII_DIN_ALCATRAZ;
-  }
 }

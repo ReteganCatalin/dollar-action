@@ -8,13 +8,18 @@ import static player.Strategy.RANDOM;
 
 public class CompletelyRandomPlayer extends Player {
 
-  @Override
-  public Choice play() {
-    return Choice.random();
-  }
+    @Override
+    public float play(float bid) {
+        Choice result = Choice.random();
+        if (result == Choice.BID) {
+            return bid + 5f;
+        } else {
+            return bid + 0f;
+        }
+    }
 
-  @Override
-  public Strategy getStrategy() {
-    return RANDOM;
-  }
+    @Override
+    public Strategy getStrategy() {
+        return RANDOM;
+    }
 }

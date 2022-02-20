@@ -3,18 +3,18 @@ package player;
 import java.util.Random;
 
 public enum Choice {
-  SILENT,
-  BETRAY;
+  BID,
+  STOP;
 
   public static Choice random() {
-    return new Random().nextBoolean() ? SILENT : BETRAY;
+    return new Random().nextBoolean() ? BID : STOP;
   }
 
   public boolean isSilent() {
-    return this.equals(SILENT);
+    return this.equals(BID);
   }
 
   public boolean betrays() {
-    return this.equals(BETRAY);
+    return this.equals(STOP);
   }
 }
