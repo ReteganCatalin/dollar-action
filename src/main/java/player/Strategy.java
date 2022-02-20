@@ -22,7 +22,7 @@ public enum Strategy {
   EMANUEII(new EmanueiiPlayer(), true),
   NASH_NON_EQ(new NashNonEquilibriumPlayer(), true),
   ECHIPA_3(new EchipaTreiPlayer(), false),
-  THE_FAR_AWAYS(new TheFarAwaysPlayer(), false),
+  THE_FAR_AWAYS(new TheFarAwaysPlayer(), true),
   GIT_GOOD(new GitGoodPlayer(), false);
 
   private final Player player;
