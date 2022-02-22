@@ -14,13 +14,7 @@ import static player.Strategy.THE_FAR_AWAYS;
 public class TheFarAwaysPlayer extends Player {
   @Override
   public float play(float bid) {
-    double stop = Math.random();
-    if(stop >= 0.1)
-    {
-      return bid + 5f;
-    } else {
       return bid + 0f;
-    }
   }
 
   @Override

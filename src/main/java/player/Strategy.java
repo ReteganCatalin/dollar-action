@@ -17,13 +17,13 @@ import java.util.stream.Collectors;
 public enum Strategy {
   RANDOM(new CompletelyRandomPlayer(), true),
   ABC(new ABCPlayer(), true),
-  CLOUDFLIGHTERS(new CloudflightersPlayer(), false),
+  CLOUDFLIGHTERS(new CloudflightersPlayer(), true),
   PRIZONIERII_DIN_ALCATRAZ(new PrizonieriiDinAlcatrazPlayer(), true),
   EMANUEII(new EmanueiiPlayer(), true),
   NASH_NON_EQ(new NashNonEquilibriumPlayer(), true),
   ECHIPA_3(new EchipaTreiPlayer(), false),
   THE_FAR_AWAYS(new TheFarAwaysPlayer(), true),
-  GIT_GOOD(new GitGoodPlayer(), false);
+  GIT_GOOD(new GitGoodPlayer(), true);
 
   private final Player player;
   private final boolean enabled;
