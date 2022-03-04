@@ -14,7 +14,14 @@ import static player.Strategy.ECHIPA_3;
 public class EchipaTreiPlayer extends Player {
   @Override
   public float play(float bid) {
-      return bid + 0f;
+      Double d = Math.random();
+      if(d > 0.1)
+      {
+        return bid + 1f;
+      }
+      else{
+        return bid;
+      }
   }
 
   @Override

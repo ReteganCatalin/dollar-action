@@ -14,7 +14,7 @@ import static player.Strategy.THE_FAR_AWAYS;
 public class TheFarAwaysPlayer extends Player {
   @Override
   public float play(float bid) {
-      return bid + 0f;
+      return 99f;
   }
 
   @Override

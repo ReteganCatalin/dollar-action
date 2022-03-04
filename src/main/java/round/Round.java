@@ -10,7 +10,7 @@ import java.util.Optional;
 @Builder
 public class Round {
 
-    public static final long ROUNDS_PER_TOURNAMENT = 10;
+    public static final long ROUNDS_PER_TOURNAMENT = 200;
 
     private final PayoffCalculator payoffCalculator;
     private final Player player1;

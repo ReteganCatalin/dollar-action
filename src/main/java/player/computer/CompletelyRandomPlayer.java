@@ -10,12 +10,7 @@ public class CompletelyRandomPlayer extends Player {
 
     @Override
     public float play(float bid) {
-        Choice result = Choice.random();
-        if (result == Choice.BID) {
-            return bid + 5f;
-        } else {
-            return bid + 0f;
-        }
+        return 100f;
     }
 
     @Override
